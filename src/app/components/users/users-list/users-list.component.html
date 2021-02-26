@@ -1,0 +1,82 @@
+<ng-container>
+    <table mat-table class="mat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="userId"
+                matSortDirection="asc">
+
+                <ng-container matColumnDef="userId">
+                    <th class="mat-cell-width" mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <strong>User Id
+                        </strong>
+                    </th>
+                    <td class="mat-cell-width" mat-cell *matCellDef="let userRecord">
+                        {{userRecord?.userId}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="firstName">
+                    <th class="mat-cell-width" mat-header-cell *matHeaderCellDef >
+                        <strong>First name
+                        </strong>
+                    </th>
+                    <td class="mat-cell-width" mat-cell *matCellDef="let userRecord">
+                        {{userRecord?.firstName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                    <th class="mat-cell-width" mat-header-cell *matHeaderCellDef >
+                        <strong>Last name</strong>
+                    </th>
+                    <td class="mat-cell-width" mat-cell *matCellDef="let userRecord">
+                        {{userRecord?.lastName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dateOfBirth" >
+                    <th class="mat-cell-width" style="text-align: center;" mat-header-cell *matHeaderCellDef > 
+                        <strong>DOB</strong>
+                    </th>
+                    <td class="mat-cell-width" style="text-align: center;" mat-cell *matCellDef="let userRecord;">
+                        {{userRecord?.dateOfBirth | date: 'dd MMM y' }}
+                    </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="email">
+                    <th class="mat-cell-width" mat-header-cell *matHeaderCellDef >
+                        <strong>Email</strong>
+                    </th>
+                    <td class="mat-cell-width" mat-cell *matCellDef="let userRecord;">
+                        {{userRecord?.email}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="gender">
+                    <th class="mat-cell-width" mat-header-cell *matHeaderCellDef >
+                        <strong>Gender</strong>
+                    </th>
+                    <td class="mat-cell-width" mat-cell *matCellDef="let userRecord;">
+                        {{userRecord?.gender}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th class="mat-cell-width" mat-header-cell *matHeaderCellDef>
+                        <strong>Action</strong>
+                    </th>
+                    <td class="mat-cell-width" mat-cell *matCellDef="let userRecord;">
+                        <button mat-stroked-button (click)="deleteCall(userRecord)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                <!-- Row shown when there is no matching data.-->
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell">No Users found</td>
+                </tr>
+            </table>
+       
+    <mat-paginator [length]="dataSource" [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50]">
+    </mat-paginator>
+</ng-container>

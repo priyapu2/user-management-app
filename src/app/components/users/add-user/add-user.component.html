@@ -1,0 +1,111 @@
+<div mat-dialog-title>
+  Add user
+</div>
+<mat-dialog-content>
+  <form [formGroup]="userForm" class="register-form m-4">
+    <div class="row">
+      <div class="col-4">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" required>
+          <mat-icon matSuffix>face</mat-icon>
+          <mat-error *ngIf="userForm.get('firstName').hasError('required')">
+            FirstName Name is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('firstName').hasError('validateName')">
+            No spaces are allowed.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" required>
+          <mat-icon matSuffix>face</mat-icon>
+          <mat-error *ngIf="userForm.get('lastName').hasError('required')">
+            Last Name is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('lastName').hasError('validateName')">
+            No spaces are allowed.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="userForm.get('email').hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('email').hasError('email')">
+            Invalid email
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Birth date</mat-label>
+          <input matInput [matDatepicker]="pickerd" formControlName="dateOfBirth" required readonly>
+          <mat-datepicker-toggle matSuffix [for]="pickerd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerd></mat-datepicker>
+          <mat-error *ngIf="userForm.get('dateOfBirth').hasError('required')">
+            Date Of Birth is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('dateOfBirth').hasError('minimumAge')">
+            Age should be greater than 15
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-4">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select matSelect formControlName="gender" required>
+            <mat-option *ngFor="let item of optionGender" [value]="item" required>
+              {{item}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="userForm.get('gender').hasError('required')">
+            Gender is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="text" required>
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="userForm.get('password').hasError('required')">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="userForm.get('password').hasError('minlength')">
+            Min length is 6 characters.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-4">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="confirmPassword" type="text">
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="userForm.get('confirmPassword').hasError('mustMatch')">
+            Password doesn't match
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="example-button-row">
+    <button mat-raised-button color="primary" [disabled]="!userForm.valid" (click)="confirmAdd()">Save</button>
+    <button mat-raised-button color="warn" [mat-dialog-close] tabindex="-1">Cancel</button>
+  </div>
+</mat-dialog-actions>
